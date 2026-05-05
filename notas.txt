@@ -1,0 +1,16 @@
+Abrir modal
+backgroundColor: "#2563eb",
+    padding: 12,
+    marginTop: 15,
+    borderRadius: 8,
+    width: 250,
+    marginBottom:20,
+    alignItems: "center",
+
+
+<Button
+    title="Abrir Modal"
+    onPress={() => setModalVisible(true)}
+/>
+
+

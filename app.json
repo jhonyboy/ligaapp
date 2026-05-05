@@ -2,18 +2,21 @@
   "expo": {
     "name": "ligaapp",
     "slug": "ligaapp",
+    "scheme": "ligapp",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
+    "platforms": ["ios", "android", "web"] ,
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.jhonatanboy.ligaapp"
     },
     "android": {
       "adaptiveIcon": {
@@ -21,10 +24,25 @@
         "backgroundColor": "#ffffff"
       },
       "edgeToEdgeEnabled": true,
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.jhonatanboy.ligaapp"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "plugins": [
+      "expo-web-browser",
+      [
+        "@react-native-google-signin/google-signin",
+        {
+          "iosUrlScheme": "com.googleusercontent.apps.674597621459-68fb14vp94fendp2nbcminp463uie7lk"
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "e80dd991-c114-489f-95fa-6645a8f06d33"
+      }
     }
   }
 }

@@ -1,0 +1,10 @@
+{
+  "models": [
+    {
+      "title": "Qwen Local",
+      "provider": "ollama",
+      "model": "qwen2.5-coder:14b",
+      "apiBase": "http://192.168.0.39:11434"
+    }
+  ]
+}
