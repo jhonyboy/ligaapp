@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { View, Text, Image, TextInput, StyleSheet, Pressable,Modal, Button, TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as DocumentPicker from "expo-document-picker";
@@ -6,8 +6,38 @@ import * as DocumentPicker from "expo-document-picker";
 import { userStore } from "../hooks/useData";
 
 import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
+import DropDownPicker from 'react-native-dropdown-picker';
+
 
 export default function HomeScreen() {
+  console.log("en el homescreen");
+  const [estados,setEstados] = useState([]);
+  const [ciudades,setCiudades] = useState([]);
+  
+  const dataEstados = async () => {
+    console.log("dataEstados");
+    const dataEstados = await fetch("http://10.0.2.2:3000/api/estado",{
+      method:'get',
+      headers:{
+        "Content-Type": "application/json",
+      },
+    });
+    const respEstados = await dataEstados.json();
+    console.log("respuesta estados ==> ",respEstados );
+  }
+  useEffect(() => {
+    console.log("en el useefect...");
+    dataEstados();
+  }, [] )
+
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(null);
+  const [items, setItems] = useState([
+    { label: 'Apple', value: 'apple' },
+    { label: 'Banana', value: 'banana' },
+    { label: 'Orange', value: 'orange' },
+  ]);
+
   const [modalVisible, setModalVisible] = useState(false);
   const bottomSheetRef = useRef<BottomSheet>(null);
 
@@ -53,7 +83,6 @@ export default function HomeScreen() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={styles.container}>
-        {/* HEADER */}
         <Image
           source={{ uri: data.user.photo }}
           style={{ width: 75, height: 75, borderRadius: 40 }}
@@ -61,7 +90,6 @@ export default function HomeScreen() {
 
         <Text style={{ marginTop: 10 }}>{data.user.email}</Text>
 
-        {/* INPUTS */}
         <TextInput
           placeholder="Nombre"
           value={nombre}
@@ -83,7 +111,20 @@ export default function HomeScreen() {
           style={styles.input}
         />
 
-        {/* FILES */}
+        <View style={{ padding: 20, width:290 }}>
+          <DropDownPicker
+            open={open}
+            value={value}
+            items={items}
+            setOpen={setOpen}
+            setValue={setValue}
+            setItems={setItems}
+            placeholder="Select a fruit"
+            searchable={true} 
+            listMode="SCROLLVIEW" 
+          />
+        </View>
+
         <Pressable
           onPress={() => pickFile(setFoto)}
           style={styles.button}
